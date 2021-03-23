@@ -6,7 +6,7 @@ export default function AppCard({ image, title, subTitle }) {
   return (
     <View style={styles.cardContainer}>
       <StatusBar />
-      <Image source={image} style={styles.img} />
+      <Image source={{ uri: image }} style={styles.img} />
       <View style={styles.subContainer}>
         <Text style={styles.title} numberOfLines={1}>
           {title}

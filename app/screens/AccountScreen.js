@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
+import AuthContext from "../auth/context";
 import Avatar from "../components/Avatar";
 import Icon from "../components/Icon";
 import Separator from "../components/Separator";
@@ -11,14 +12,20 @@ const data = [
     title: "My Listings",
     name: "format-list-bulleted",
     background: colors.primary,
+    screen: "Listings",
   },
   {
     title: "My Messages",
     name: "email",
     background: colors.secondary,
+    screen: "Message",
   },
 ];
-export default function AccountScreen() {
+export default function AccountScreen({ navigation }) {
+  const authContext = useContext(AuthContext);
+  const handleLogOut = () => {
+    authContext.setUser(false);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.userContainer}>
@@ -39,7 +46,7 @@ export default function AccountScreen() {
               subTitle={item.subTitle}
               name={item.name}
               background={item.background}
-              onPress={() => console.log()}
+              onPress={() => navigation.navigate(item.screen)}
             />
           )}
         />
@@ -49,7 +56,7 @@ export default function AccountScreen() {
           title="Log Out"
           name="logout"
           background="#ede10b"
-          onPress={() => console.log()}
+          onPress={handleLogOut}
         />
       </View>
     </View>

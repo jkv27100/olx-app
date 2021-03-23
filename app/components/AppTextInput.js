@@ -9,9 +9,9 @@ export default function AppTextInput({
   size = 20,
   ...otherProps
 }) {
-  const [state, setstate] = useState("");
+  const [state, setState] = useState("");
   const handleChange = (text) => {
-    setstate(text);
+    setState(text);
   };
   return (
     <View style={styles.container}>
@@ -35,7 +35,7 @@ export default function AppTextInput({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.light,
+    backgroundColor: colors.white,
     padding: 15,
     flexDirection: "row",
     marginVertical: 10,

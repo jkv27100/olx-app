@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { View, StatusBar, Button, Switch, Alert, Image } from "react-native";
+import NetInfo from "@react-native-community/netinfo";
+import {
+  View,
+  StatusBar,
+  Button,
+  Switch,
+  Alert,
+  Image,
+  Text,
+} from "react-native";
 import ViewImageScreen from "./app/screens/ViewImageScreen";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import AppButton from "./app/components/AppButton";
@@ -20,12 +29,22 @@ import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import ImageInput from "./app/components/ImageInput";
 import ImageList from "./app/components/ImageList";
-
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import AuthNavigator from "./app/navigation/AuthNavigator";
+import navigationTheme from "./app/navigation/navigationTheme";
+import AppNavigator from "./app/navigation/AppNavigator";
+import AuthContext from "./app/auth/context";
 export default function App() {
+  const [user, setUser] = useState(false);
   return (
-    <>
-      <StatusBar />
-      <ListingEditScreen />
-    </>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <NavigationContainer theme={navigationTheme}>
+        <StatusBar />
+        {user ? <AppNavigator /> : <AuthNavigator />}
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }

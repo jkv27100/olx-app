@@ -3,25 +3,33 @@ import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import AppButton from "../components/AppButton";
 
 import colors from "../config/colors";
+import routes from "../navigation/routes";
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen({ navigation }) {
   return (
     <ImageBackground
-      blurRadius={3}
+      blurRadius={0.5}
       style={styles.background}
-      source={require("../assets/welcome.jpeg")}
+      source={require("../assets/welcome.jpg")}
     >
-      <View style={styles.logoContainer}>
+      {/* <View style={styles.logoContainer}>
         <Image
           style={styles.logo}
           source={require("../assets/welcome-logo.png")}
         />
         <Text style={styles.caption}>Hanker for solutions</Text>
-      </View>
+      </View> */}
 
       <View style={styles.buttonContainer}>
-        <AppButton title="Login" />
-        <AppButton title="Register" color="secondary" />
+        <AppButton
+          title="Login"
+          onPress={() => navigation.navigate(routes.LOGIN)}
+        />
+        <AppButton
+          title="Register"
+          color="secondary"
+          onPress={() => navigation.navigate(routes.REGISTER)}
+        />
       </View>
     </ImageBackground>
   );

@@ -1,10 +1,12 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useState, useContext } from "react";
+import { StyleSheet, View } from "react-native";
 import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import ErrorMessage from "../components/ErrorMessage";
+import authApi from "../auth/validate";
+import AuthContext from "../auth/context";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -12,11 +14,25 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function LoginScreen() {
+  const [loginFailed, setLoginFailed] = useState(false);
+  const authContext = useContext(AuthContext);
+
+  const handleSubmit = (loginInfo) => {
+    const isUser = authApi.validate(loginInfo);
+    if (!isUser) setLoginFailed(true);
+    setLoginFailed(false);
+    authContext.setUser(true);
+  };
+
   return (
     <View style={styles.container}>
+      <ErrorMessage
+        message="Email or Password is wrong "
+        visible={loginFailed}
+      />
       <Formik
         initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (

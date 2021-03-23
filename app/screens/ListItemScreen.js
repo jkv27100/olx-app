@@ -3,15 +3,16 @@ import { StyleSheet, Text, View, StatusBar, Image } from "react-native";
 import Avatar from "../components/Avatar";
 import colors from "../config/colors";
 
-export default function AppCard({ image, title, subTitle }) {
+export default function ListItemScreen({ route }) {
+  const listings = route.params;
   return (
     <>
       <View style={styles.cardContainer}>
         <StatusBar />
-        <Image source={image} style={styles.img} />
+        <Image source={{ uri: listings.image }} style={styles.img} />
         <View style={styles.subContainer}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.subTitle}>{subTitle}</Text>
+          <Text style={styles.title}>{listings.title}</Text>
+          <Text style={styles.subTitle}>{"$" + listings.price}</Text>
         </View>
       </View>
       <View>

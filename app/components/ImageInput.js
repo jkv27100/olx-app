@@ -55,7 +55,7 @@ export default function ImageInput({ imageUri, onChangeImage }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.light,
+    backgroundColor: colors.white,
     width: 125,
     height: 125,
     padding: 15,
